@@ -41,6 +41,30 @@ struct Point<T, U> {
     y: U,
 }
 
+impl <T,U> Point<T, U> {
+    // using self here instead of &self moves the value so it can't be used again
+    fn x(&self) -> &T {
+        &self.x
+    } 
+}
+
+impl <T,U> Point<T, U> {
+    fn mix_up<V,W> (self, other: Point<V, W>) -> Point<T, W> {
+        Point {
+            x: self.x,
+            y: other.y        
+        }
+    }
+}
+
+// generics in enum
+
+enum Option<T, E> {
+    Ok(T),
+    Err(E)
+}
+
+
 fn main() {
     let x = vec![1, 5, 2, 3, 7];
 
@@ -59,4 +83,16 @@ fn main() {
     let x = Point { x: 0.0, y: 1.0};
 
     let x = Point { x: 0, y: 1.0};
+
+    println!("{}", x.x());
+
+    println!("{}", x.x());
+    
+    let c = x.mix_up(Point{x: 'a', y: 'b'});
+
+    // this won't work because value was moved by the call above
+    // println!("x: {}, y: {}", x.x, x.y);
+    
+    println!("x: {}, y: {}", c.x, c.y);
+
 }
