@@ -41,9 +41,17 @@ fn main() {
     }
 
     match b.fits(&a) {
-        true => {
-            println!("Rectangle b fits rectangle a inside it.");
-        }
+        true => println!("Rectangle b fits rectangle a inside it."),
         false => println!("Rectangle b does NOT fit rectangle a inside it."),
     }
+
+    let c = Rectangle {
+        width: 10,
+        height: 15
+    };
+
+    match c.fits(&b) {
+        true => println!("Rectangle c fits rectangle b."),
+        false => println!("Rectangle c does not fit rectangle b.")
+    };
 }
